@@ -13,4 +13,8 @@
     <string name="action_settings">Settings</string>
     <string name="next_button">Next</string>
     <string name="back_button">Previous</string>
+    <string name="cheat_button"> Cheat! </string>
+    <string name="warning_text"> Are you sure you want to cheat? </string>
+    <string name="show_answer_button"> Show Answer</string>
+    <string name="judgment_toast">Wow, cheating is bad mmkay</string>
 </resources>
