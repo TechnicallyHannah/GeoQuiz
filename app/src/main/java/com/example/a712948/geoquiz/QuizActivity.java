@@ -22,6 +22,7 @@ public class QuizActivity extends ActionBarActivity {
     private ImageButton mNextButton;
     private ImageButton mBackButton;
     private TextView mQuestionTextView;
+    private Button mCheatButton;
 
     private TrueFalse[] mQuestionBank = new TrueFalse[]{
             new TrueFalse(R.string.question_africa, false),
@@ -70,64 +71,63 @@ public class QuizActivity extends ActionBarActivity {
 
 
         mFalseButton.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
-                                                checkAnswer(false);
-                                            }
+            @Override
+            public void onClick(View view) {
+                checkAnswer(false);
+            }
 
-                                        }
-
-        );
+        });
 
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
-
         mNextButton = (ImageButton) findViewById(R.id.next_button);
 
         mNextButton.setOnClickListener(new View.OnClickListener() {
-                                           @Override
-                                           public void onClick(View view) {
-                                               mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
-                                               updateQuestion();
+            @Override
+            public void onClick(View view) {
+                mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+                updateQuestion();
 
-                                           }
-                                       }
-
-        );
+            }
+        });
 
         mBackButton = (ImageButton)
 
                 findViewById(R.id.back_button);
 
         mBackButton.setOnClickListener(new View.OnClickListener() {
-                                           @Override
-                                           public void onClick(View view) {
-                                               mCurrentIndex = (mCurrentIndex - 1) % mQuestionBank.length;
-                                               if (mCurrentIndex < 0) {
-                                                   mCurrentIndex = mQuestionBank.length;
-                                               } else {
-                                                   updateQuestion();
-                                               }
-                                           }
-                                       }
-
-        );
+            @Override
+            public void onClick(View view) {
+                mCurrentIndex = (mCurrentIndex - 1) % mQuestionBank.length;
+                if (mCurrentIndex < 0) {
+                    mCurrentIndex = mQuestionBank.length;
+                } else {
+                    updateQuestion();
+                }
+            }
+        });
 
         TextView tv = (TextView) findViewById(R.id.question_text_view);
         tv.setOnClickListener(new View.OnClickListener() {
-                                  @Override
-                                  public void onClick(View view) {
-                                      mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
-                                      updateQuestion();
+            @Override
+            public void onClick(View view) {
+                mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+                updateQuestion();
 
-                                  }
-                              }
-
-        );
+            }
+        });
 
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
         }
 
+        mCheatButton = (Button) findViewById(R.id.cheat_button);
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Start Activity
+            }
+
+        });
         updateQuestion();
 
     }
