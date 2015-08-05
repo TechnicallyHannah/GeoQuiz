@@ -15,6 +15,7 @@ import android.widget.Toast;
 public class QuizActivity extends ActionBarActivity {
 
     private static final String TAG = "QuizActivity";
+    private static final String KEY_INDEX = "index";
 
     private Button mTrueButton;
     private Button mFalseButton;
@@ -68,9 +69,7 @@ public class QuizActivity extends ActionBarActivity {
         });
 
 
-        mFalseButton.setOnClickListener(new View.OnClickListener()
-
-                                        {
+        mFalseButton.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
                                                 checkAnswer(false);
@@ -80,17 +79,11 @@ public class QuizActivity extends ActionBarActivity {
 
         );
 
-        mQuestionTextView = (TextView)
+        mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
 
-                findViewById(R.id.question_text_view);
+        mNextButton = (ImageButton) findViewById(R.id.next_button);
 
-        mNextButton = (ImageButton)
-
-                findViewById(R.id.next_button);
-
-        mNextButton.setOnClickListener(new View.OnClickListener()
-
-                                       {
+        mNextButton.setOnClickListener(new View.OnClickListener() {
                                            @Override
                                            public void onClick(View view) {
                                                mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
@@ -105,9 +98,7 @@ public class QuizActivity extends ActionBarActivity {
 
                 findViewById(R.id.back_button);
 
-        mBackButton.setOnClickListener(new View.OnClickListener()
-
-                                       {
+        mBackButton.setOnClickListener(new View.OnClickListener() {
                                            @Override
                                            public void onClick(View view) {
                                                mCurrentIndex = (mCurrentIndex - 1) % mQuestionBank.length;
@@ -122,8 +113,7 @@ public class QuizActivity extends ActionBarActivity {
         );
 
         TextView tv = (TextView) findViewById(R.id.question_text_view);
-        tv.setOnClickListener(new View.OnClickListener()
-                              {
+        tv.setOnClickListener(new View.OnClickListener() {
                                   @Override
                                   public void onClick(View view) {
                                       mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
@@ -134,9 +124,21 @@ public class QuizActivity extends ActionBarActivity {
 
         );
 
+        if (savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+        }
+
         updateQuestion();
 
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG, "onSaveInstanceState");
+        savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+    }
+
 
     @Override
     public void onStart() {
