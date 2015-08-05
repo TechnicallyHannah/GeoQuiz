@@ -15,6 +15,7 @@ public class QuizActivity extends ActionBarActivity {
     private Button mTrueButton;
     private Button mFalseButton;
     private Button mNextButton;
+    private Button mBackButton;
     private TextView mQuestionTextView;
 
     private TrueFalse[] mQuestionBank = new TrueFalse[]{
@@ -81,8 +82,21 @@ public class QuizActivity extends ActionBarActivity {
             }
         });
 
+        mBackButton = (Button) findViewById(R.id.back_button);
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCurrentIndex = (mCurrentIndex - 1) % mQuestionBank.length;
+                if (mCurrentIndex < 0) {
+                    mCurrentIndex = 0;
+                } else {
+                    updateQuestion();
+                }
+            }
+        });
+
         TextView tv = (TextView) findViewById(R.id.question_text_view);
-        tv.setOnClickListener(new View.OnClickListener(){
+        tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
