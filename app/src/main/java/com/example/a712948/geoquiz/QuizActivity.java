@@ -5,17 +5,15 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
 
 public class QuizActivity extends ActionBarActivity {
 
     private Button mTrueButton;
     private Button mFalseButton;
-    private Button mNextButton;
-    private Button mBackButton;
+    private ImageButton mNextButton;
+    private ImageButton mBackButton;
     private TextView mQuestionTextView;
 
     private TrueFalse[] mQuestionBank = new TrueFalse[]{
@@ -72,7 +70,7 @@ public class QuizActivity extends ActionBarActivity {
 
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
 
-        mNextButton = (Button) findViewById(R.id.next_button);
+        mNextButton = (ImageButton) findViewById(R.id.next_button);
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,13 +80,13 @@ public class QuizActivity extends ActionBarActivity {
             }
         });
 
-        mBackButton = (Button) findViewById(R.id.back_button);
+        mBackButton = (ImageButton) findViewById(R.id.back_button);
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mCurrentIndex = (mCurrentIndex - 1) % mQuestionBank.length;
                 if (mCurrentIndex < 0) {
-                    mCurrentIndex = 0;
+                    mCurrentIndex = mQuestionBank.length;
                 } else {
                     updateQuestion();
                 }
