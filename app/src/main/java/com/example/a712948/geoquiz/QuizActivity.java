@@ -72,7 +72,7 @@ public class QuizActivity extends ActionBarActivity {
         Log.d(TAG, "onCreate(Bundle) called");
         setContentView(R.layout.activity_quiz);
 
-        mTrueButton = (Button) findViewById(R.id.true_button);
+        mTrueButton = (Button) findViewById(R.id.true_button);  
         mFalseButton = (Button) findViewById(R.id.false_button);
 
         mTrueButton.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +132,8 @@ public class QuizActivity extends ActionBarActivity {
 
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+            mIsCheater = savedInstanceState.getBoolean(CheatActivity.CHEATER_KEY, mIsCheater);
+            Log.i("Instance Saved", String.valueOf(mIsCheater));
         }
 
         mCheatButton = (Button) findViewById(R.id.cheat_button);
@@ -155,6 +157,7 @@ public class QuizActivity extends ActionBarActivity {
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "onSaveInstanceState");
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+        savedInstanceState.putBoolean(CheatActivity.CHEATER_KEY, mIsCheater);
     }
 
 
