@@ -28,6 +28,7 @@ public class CheatActivity extends ActionBarActivity {
     private void setAnswerShownResult(boolean isAnswerShown) {
         Intent data = new Intent();
         data.putExtra(EXTRA_ANSWER_SHOWN, isAnswerShown);
+        data.putExtra(CHEATER_KEY, mIsCheater);
         setResult(RESULT_OK, data);
     }
 
@@ -37,22 +38,19 @@ public class CheatActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cheat);
 
+        if (savedInstanceState != null) {
+            setAnswerShownResult(savedInstanceState.getBoolean(EXTRA_ANSWER_SHOWN));
+        } else {
+            setAnswerShownResult(false);
+        }
+
         mAnswerIsTrue = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false);
 
         mAnswerTextView = (TextView) findViewById(R.id.answer_text_view);
         mShowAnswer = (Button) findViewById(R.id.show_answer_button);
         setAnswerShownResult(false);
 
-        if (savedInstanceState != null) {
-            mIsCheater = savedInstanceState.getBoolean(CHEATER_KEY, mIsCheater);
-            if (mIsCheater) {
-                if (mAnswerIsTrue) {
-                    mAnswerTextView.setText(R.string.true_button);
-                } else {
-                    mAnswerTextView.setText(R.string.false_button);
-                }
-            }
-        }
+
         Log.i("BEFORE ON CLICK", String.valueOf(mIsCheater));
         mShowAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,8 +61,6 @@ public class CheatActivity extends ActionBarActivity {
                     mAnswerTextView.setText(R.string.false_button);
                 }
                 setAnswerShownResult(true);
-                mIsCheater = true;
-                Log.i("AFTER ON CLICK", String.valueOf(mIsCheater));
             }
         });
     }
@@ -72,8 +68,6 @@ public class CheatActivity extends ActionBarActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        Log.i(TAG, "onSaveInstanceState");
-        Log.i("In ON Instance State ", String.valueOf(mIsCheater));
         savedInstanceState.putBoolean(CHEATER_KEY, mIsCheater);
     }
 }
