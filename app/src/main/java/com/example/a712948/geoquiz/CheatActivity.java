@@ -16,7 +16,6 @@ public class CheatActivity extends ActionBarActivity {
     public static final String EXTRA_ANSWER_IS_TRUE = "com.example.a712948.geoquiz.answer_is_true";
     public static final String EXTRA_ANSWER_SHOWN = "com.example.a712948.geoquiz.answer_shown";
     public static final String CHEATER_KEY = "is_cheater";
-    public static final String TAG = "tag";
 
     private boolean mAnswerIsTrue;
     private TextView mAnswerTextView;

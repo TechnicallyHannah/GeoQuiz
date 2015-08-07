@@ -160,8 +160,7 @@ public class QuizActivity extends ActionBarActivity {
         if (data == null) {
             return;
         }
-        if(data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false))
-        {
+        if (data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false)) {
             didCheat.add(mCurrentIndex);
         }
     }
@@ -174,7 +173,6 @@ public class QuizActivity extends ActionBarActivity {
         Log.i("OnSaveInstanceState", String.valueOf(mIsCheater));
         savedInstanceState.putBoolean(CheatActivity.CHEATER_KEY, mIsCheater);
     }
-
 
     @Override
     public void onStart() {
