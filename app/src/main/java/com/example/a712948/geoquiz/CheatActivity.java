@@ -3,7 +3,6 @@ package com.example.a712948.geoquiz;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,15 +19,15 @@ public class CheatActivity extends ActionBarActivity {
     public static final String TAG = "tag";
 
     private boolean mAnswerIsTrue;
-    private boolean mIsCheater;
     private TextView mAnswerTextView;
     private Button mShowAnswer;
+    private Boolean mIsAnswerShown;
 
 
     private void setAnswerShownResult(boolean isAnswerShown) {
+        mIsAnswerShown = isAnswerShown;
         Intent data = new Intent();
         data.putExtra(EXTRA_ANSWER_SHOWN, isAnswerShown);
-        data.putExtra(CHEATER_KEY, mIsCheater);
         setResult(RESULT_OK, data);
     }
 
@@ -50,8 +49,6 @@ public class CheatActivity extends ActionBarActivity {
         mShowAnswer = (Button) findViewById(R.id.show_answer_button);
         setAnswerShownResult(false);
 
-
-        Log.i("BEFORE ON CLICK", String.valueOf(mIsCheater));
         mShowAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,6 +65,6 @@ public class CheatActivity extends ActionBarActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putBoolean(CHEATER_KEY, mIsCheater);
+        savedInstanceState.putBoolean(CHEATER_KEY, mIsAnswerShown);
     }
 }

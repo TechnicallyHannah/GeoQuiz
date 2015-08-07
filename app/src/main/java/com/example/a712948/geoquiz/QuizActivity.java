@@ -12,12 +12,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 
 public class QuizActivity extends ActionBarActivity {
 
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
-    private static final String CHEATED_ARRAY = "cheated_array";
+    private static final String KEY_CHEATER = "didCheat";
 
     private Button mTrueButton;
     private Button mFalseButton;
@@ -35,6 +37,7 @@ public class QuizActivity extends ActionBarActivity {
     };
     private int mCurrentIndex = 0;
     private boolean mIsCheater;
+    private ArrayList<Integer> didCheat;
 
     private void updateQuestion() {
         int question = mQuestionBank[mCurrentIndex].getQuestion();
@@ -46,7 +49,7 @@ public class QuizActivity extends ActionBarActivity {
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isTrueQuestion();
 
         int messageResId = 0;
-        if (mIsCheater) {
+        if (didCheat.contains(mCurrentIndex)) {
             messageResId = R.string.judgment_toast;
         } else {
             if (userPressedTrue == answerIsTrue) {
@@ -79,7 +82,7 @@ public class QuizActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate(Bundle) called");
         setContentView(R.layout.activity_quiz);
-        
+
         mTrueButton = (Button) findViewById(R.id.true_button);
         mFalseButton = (Button) findViewById(R.id.false_button);
 
@@ -128,8 +131,11 @@ public class QuizActivity extends ActionBarActivity {
 
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
-            mIsCheater = savedInstanceState.getBoolean(CheatActivity.CHEATER_KEY, mIsCheater);
-            Log.i("Instance Saved", String.valueOf(mIsCheater));
+
+            didCheat = (ArrayList<Integer>) savedInstanceState.get(KEY_CHEATER);
+        } else {
+            didCheat = new ArrayList<Integer>();
+
         }
 
         mCheatButton = (Button) findViewById(R.id.cheat_button);
@@ -154,7 +160,10 @@ public class QuizActivity extends ActionBarActivity {
         if (data == null) {
             return;
         }
-        mIsCheater = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);
+        if(data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false))
+        {
+            didCheat.add(mCurrentIndex);
+        }
     }
 
     @Override
